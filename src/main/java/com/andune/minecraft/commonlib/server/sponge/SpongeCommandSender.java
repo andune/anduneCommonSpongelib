@@ -29,7 +29,9 @@ package com.andune.minecraft.commonlib.server.sponge;
 
 import com.andune.minecraft.commonlib.i18n.Colors;
 import com.andune.minecraft.commonlib.server.api.CommandSender;
+import org.spongepowered.api.text.Text;
 import org.spongepowered.api.util.command.CommandSource;
+import org.spongepowered.api.text.Texts;
 
 /**
  * @author andune
@@ -46,15 +48,15 @@ public class SpongeCommandSender implements CommandSender {
 
     @Override
     public void sendMessage(String message) {
-        commandSource.sendMessage(colors.applyColors(message));
+        commandSource.sendMessage(Texts.builder(colors.applyColors(message)).build());
     }
 
     @Override
     public void sendMessage(String[] messages) {
         if( messages != null && messages.length > 0 ) {
-            String[] coloredMessages = new String[messages.length];
+            Text[] coloredMessages = new Text[messages.length];
             for(int i=0; i < messages.length; i++) {
-                coloredMessages[i] = colors.applyColors(messages[i]);
+                coloredMessages[i] = Texts.builder(colors.applyColors(messages[i])).build();
             }
             commandSource.sendMessage(coloredMessages);
         }
